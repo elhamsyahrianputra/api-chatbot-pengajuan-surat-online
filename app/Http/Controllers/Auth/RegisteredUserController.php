@@ -34,7 +34,7 @@ class RegisteredUserController extends Controller
         Auth::login($user);
 
         return response()->json([
-            'code' => '201',
+            'code' => 201,
             'status' => 'CREATED',
             'message' => 'Registration Successfully',
             'data' => new RegisterResource($user)

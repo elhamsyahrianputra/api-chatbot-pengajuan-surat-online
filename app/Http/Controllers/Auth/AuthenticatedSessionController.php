@@ -22,7 +22,7 @@ class AuthenticatedSessionController extends Controller
         $token = $user->createToken('token-api')->plainTextToken;
 
         return response()->json([
-            'code' => '200',
+            'code' => 200,
             'status' => 'OK',
             'data' => new LoginResource($user),
             'token' => $token
