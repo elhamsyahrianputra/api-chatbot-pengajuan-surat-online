@@ -26,13 +26,13 @@ class LetterTypeSeeder extends Seeder
             ],
             [
                 "id" => "0196335a-04cc-7027-a4ed-2473a8ebc19e",
-                "name" => "Verifikasi Data PDDIKTI",
-                "slug" => "verifikasi-data-pddikti",
+                "name" => "Aktif Kuliah",
+                "slug" => "aktif-kuliah",
             ],
             [
                 "id" => "0196335a-04ce-7205-a7bf-a39c700acf17",
-                "name" => "SKL & SK YUDISIUM",
-                "slug" => "skl-sk-yudisium",
+                "name" => "Aktif Untuk Tunjangan Ortu",
+                "slug" => "aktif-untuk-tunjangan-ortu",
             ],
             [
                 "id" => "0196335a-04cf-7289-be04-f16ba09901c9",
@@ -41,13 +41,14 @@ class LetterTypeSeeder extends Seeder
             ],
             [
                 "id" => "0196335a-04d0-7084-88ae-c4b5a593939f",
-                "name" => "Aktif Kuliah",
-                "slug" => "aktif-kuliah",
+                "name" => "Verifikasi Data PDDIKTI",
+                "slug" => "verifikasi-data-pddikti",
             ],
             [
                 "id" => "0196335a-04d1-7154-bec2-75241d6ce171",
-                "name" => "Aktif Untuk Tunjangan Ortu",
-                "slug" => "aktif-untuk-tunjangan-ortu",
+                "name" => "SKL & SK YUDISIUM",
+                "slug" => "skl-sk-yudisium",
+
             ],
             [
                 "id" => "0196335a-04d2-70a9-83c6-439f67dc2c47",

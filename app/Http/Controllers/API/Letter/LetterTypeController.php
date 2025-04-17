@@ -9,21 +9,26 @@ use App\Http\Resources\Letter\LetterTypeResource;
 use App\Models\LetterType;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class LetterTypeController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index(): JsonResponse
+    public function index(Request $request): JsonResponse
     {
-        $letterType = LetterType::all();
+        $letterTypes = LetterType::query();
+
+        if ($request->input('include') === 'requirements') {
+            $letterTypes->with('requirements');
+        }
 
         return response()->json([
             'code' => 200,
             'status' => 'OK',
             'message' => 'All Letter types retrieved successfully.',
-            'data' => LetterTypeResource::collection($letterType),
+            'data' => LetterTypeResource::collection($letterTypes->get()),
         ]);
     }
 
@@ -34,12 +39,16 @@ class LetterTypeController extends Controller
     {
         $validateData = $request->validated();
 
+        if (isset($validateData['name'])) {
+            $validateData['slug'] = Str::slug($validateData['name']);
+        }
+
         $letterType = LetterType::create($validateData);
 
         return response()->json([
             'code' => 201,
             'status' => 'CREATED',
-            'message' => 'Letter types created successfully.',
+            'message' => 'Letter type created successfully.',
             'data' => new LetterTypeResource($letterType)
         ]);
     }
@@ -47,25 +56,33 @@ class LetterTypeController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(LetterType $letterType): JsonResponse
+    public function show(Request $request, LetterType $letterType): JsonResponse
     {
+        if ($request->input('include') === 'requirements') {
+            $letterType->load('requirements');
+        }
+
         return response()->json([
             'code' => 200,
             'status' => 'OK',
-            'message' => 'Letter types retrieved successfully.',
+            'message' => 'Letter type retrieved successfully.',
             'data' => new LetterTypeResource($letterType)
         ]);
     }
 
-        /**
+    /**
      * Display the specified resource by slug.
      */
-    public function showBySlug(LetterType $letterType): JsonResponse
+    public function showBySlug(Request $request, LetterType $letterType): JsonResponse
     {
+        if ($request->input('include') === 'requirements') {
+            $letterType->load('requirements');
+        }
+
         return response()->json([
             'code' => 200,
             'status' => 'OK',
-            'message' => 'Letter types retrieved successfully.',
+            'message' => 'Letter type retrieved successfully.',
             'data' => new LetterTypeResource($letterType)
         ]);
     }
@@ -77,12 +94,16 @@ class LetterTypeController extends Controller
     {
         $validateData = $request->validated();
 
-        $letterType->update(['name' => $validateData['name']]);
+        if(isset($validateData['name'])) {
+            $validateData['slug'] = Str::slug($validateData['name']);
+        }
+
+        $letterType->update($validateData);
 
         return response()->json([
             'code' => 200,
             'status' => 'OK',
-            'message' => 'Letter types updated successfully.',
+            'message' => 'Letter type updated successfully.',
             'data' => new LetterTypeResource($letterType)
         ]);
     }
@@ -97,8 +118,7 @@ class LetterTypeController extends Controller
         return response()->json([
             'code' => 200,
             'status' => 'OK',
-            'message' => 'Letter types deleted successfully',
-            
+            'message' => 'Letter type deleted successfully',
         ]);
     }
 }

@@ -5,7 +5,7 @@ namespace App\Http\Resources\Letter;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class LetterTypeResource extends JsonResource
+class LetterRequirementResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -17,10 +17,9 @@ class LetterTypeResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'slug' => $this->slug,
+            'description' => $this->whenNotNull($this->description),
             'created_at' => $this->created_at,
             'updated_at' => $this->whenNotNull($this->updated_at),
-            'requirements' => LetterRequirementResource::collection($this->whenLoaded('requirements')),
         ];
     }
 }
