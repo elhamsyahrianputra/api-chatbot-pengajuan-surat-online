@@ -27,7 +27,7 @@ class LetterTypeController extends Controller
         return response()->json([
             'code' => 200,
             'status' => 'OK',
-            'message' => 'All Letter types retrieved successfully.',
+            'message' => 'All letter types retrieved successfully.',
             'data' => LetterTypeResource::collection($letterTypes->get()),
         ]);
     }

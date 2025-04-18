@@ -27,7 +27,7 @@ class UserFactory extends Factory
         return [
             'name' => $name,
             'email' => Str::lower(Str::replace(' ', '', $name)) . "@student.uns.ac.id",
-            'email_verified_at' => now(),
+            'email_verified_at' => null,
             'password' => static::$password ??= Hash::make('password'),
             'remember_token' => null,
         ];

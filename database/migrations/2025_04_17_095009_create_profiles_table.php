@@ -11,13 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('letter_requirements', function (Blueprint $table) {
+        Schema::create('profiles', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->foreignUuid('letter_type_id')->constrained('letter_types');
-            $table->string('name');
-            $table->text('description')->nullable();
+            $table->foreignUuid('user_id')->unique()->constrained('users');
+            $table->enum('gender', ['male', 'female']);
+            $table->string('academic_program');
+            $table->string('phone', 16);
+            $table->tinyInteger('semester');
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 
@@ -26,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('letter_requirements');
+        Schema::dropIfExists('profiles');
     }
 };

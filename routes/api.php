@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\API\Letter\LetterRequirementController;
 use App\Http\Controllers\API\Letter\LetterTypeController;
+use App\Http\Controllers\API\User\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -9,11 +10,16 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::apiResource('/letter-types', LetterTypeController::class)
-    ->middleware('auth:sanctum');
-Route::get('/letter-types/slug/{letterType:slug}', [LetterTypeController::class, 'showBySlug'])->middleware('api');
+Route::apiResource('letter-types', LetterTypeController::class)
+    ->middleware('api');
+
+Route::get('/letter-types/slug/{letterType:slug}', [LetterTypeController::class, 'showBySlug'])
+    ->middleware('api');
 
 Route::apiResource('letter-requirements', LetterRequirementController::class)
-    ->middleware('auth:sanctum');
+    ->middleware('api');
+
+Route::apiResource('users', UserController::class)
+    ->middleware('api');
 
 require __DIR__ . '/auth.php';
