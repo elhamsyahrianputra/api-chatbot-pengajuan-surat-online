@@ -42,20 +42,31 @@ class ProfileSeeder extends Seeder
             9,
             10
         ];
-        
+
         $sex = ['male', 'female'];
 
 
 
 
         foreach ($users as $user) {
-            Profile::create([
-                'user_id' => $user->id,
-                'gender' => Arr::random($sex),
-                'academic_program' => Arr::random($academicProgram),
-                'phone' => "08" . fake()->randomNumber(5, true) . fake()->randomNumber(5, true),
-                'semester' => Arr::random($semester),
-            ]);
+            if ($user->name === "Elham Syahrian Putra") {
+                Profile::create([
+                    'user_id' => $user->id,
+                    'gender' => 'male',
+                    'academic_program' => Arr::random($academicProgram),
+                    'phone' => "08" . fake()->randomNumber(5, true) . fake()->randomNumber(5, true),
+                    'semester' => Arr::random($semester),
+                ]);
+            } else {
+
+                Profile::create([
+                    'user_id' => $user->id,
+                    'gender' => Arr::random($sex),
+                    'academic_program' => Arr::random($academicProgram),
+                    'phone' => "08" . fake()->randomNumber(5, true) . fake()->randomNumber(5, true),
+                    'semester' => Arr::random($semester),
+                ]);
+            }
         }
     }
 }

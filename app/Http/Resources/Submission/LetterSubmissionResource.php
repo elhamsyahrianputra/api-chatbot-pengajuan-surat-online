@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Resources\Letter;
+namespace App\Http\Resources\Submission;
 
+use App\Http\Resources\User\UserResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class LetterRequirementResource extends JsonResource
+class LetterSubmissionResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,12 +17,13 @@ class LetterRequirementResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'name' => $this->name,
+            'user_id' => $this->user_id,
+            'user' => new UserResource($this->whenLoaded('user')),
             'letter_type_id' => $this->letter_type_id,
-            'letter_type' => new LetterTypeResource($this->whenLoaded('letterType')),
-            'description' => $this->whenNotNull($this->description),
+            'letter_type' => $this->whenLoaded('letterType'),
+            'status' => $this->status,
             'created_at' => $this->created_at,
-            'updated_at' => $this->whenNotNull($this->updated_at),
+            'updated_at' => $this->whenNotNull($this->updated_at)
         ];
     }
 }

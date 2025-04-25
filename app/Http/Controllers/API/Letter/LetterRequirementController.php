@@ -17,13 +17,14 @@ class LetterRequirementController extends Controller
      */
     public function index(): JsonResponse
     {
-        $letterRequirement = LetterRequirement::all();
+        $validIncludes = $this->getValidIncludes(['letterType']);
+        $letterRequirements = LetterRequirement::with($validIncludes)->get();
 
         return response()->json([
             'code' => 200,
             'status' => 'OK',
             'message' => 'All Letter requirements retrieved successfully.',
-            'data' => LetterRequirementResource::collection($letterRequirement)
+            'data' => LetterRequirementResource::collection($letterRequirements)
         ]);
     }
 
@@ -49,6 +50,9 @@ class LetterRequirementController extends Controller
      */
     public function show(LetterRequirement $letterRequirement)
     {
+        $validIncludes = $this->getValidIncludes(['letterType']);
+        $letterRequirement->load($validIncludes);
+
         return response()->json([
             'code' => 200,
             'status' => 'OK',
@@ -84,7 +88,7 @@ class LetterRequirementController extends Controller
         return response()->json([
             'code' => 200,
             'status' => 'OK',
-        'message' => 'Letter requirement deleted successfully',
+            'message' => 'Letter requirement deleted successfully',
         ]);
     }
 }

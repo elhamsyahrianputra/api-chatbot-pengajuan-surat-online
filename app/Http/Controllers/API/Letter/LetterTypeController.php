@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Letter\StoreLetterTypeRequest;
 use App\Http\Requests\Letter\UpdateLetterTypeRequest;
 use App\Http\Resources\Letter\LetterTypeResource;
+use App\Models\LetterSubmission;
 use App\Models\LetterType;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -13,22 +14,20 @@ use Illuminate\Support\Str;
 
 class LetterTypeController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request): JsonResponse
+    public function index(): JsonResponse
     {
-        $letterTypes = LetterType::query();
-
-        if ($request->input('include') === 'requirements') {
-            $letterTypes->with('requirements');
-        }
+        $validIncludes = $this->getValidIncludes(['requirements']);
+        $letterTypes = LetterType::with($validIncludes)->get();
 
         return response()->json([
             'code' => 200,
             'status' => 'OK',
             'message' => 'All letter types retrieved successfully.',
-            'data' => LetterTypeResource::collection($letterTypes->get()),
+            'data' => LetterTypeResource::collection($letterTypes),
         ]);
     }
 
@@ -56,11 +55,10 @@ class LetterTypeController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Request $request, LetterType $letterType): JsonResponse
+    public function show(LetterType $letterType): JsonResponse
     {
-        if ($request->input('include') === 'requirements') {
-            $letterType->load('requirements');
-        }
+        $validIncludes = $this->getValidIncludes(['requirements']);
+        $letterType->load($validIncludes);
 
         return response()->json([
             'code' => 200,
@@ -73,11 +71,10 @@ class LetterTypeController extends Controller
     /**
      * Display the specified resource by slug.
      */
-    public function showBySlug(Request $request, LetterType $letterType): JsonResponse
+    public function showBySlug(LetterType $letterType): JsonResponse
     {
-        if ($request->input('include') === 'requirements') {
-            $letterType->load('requirements');
-        }
+        $validIncludes = $this->getValidIncludes(['requirements']);
+        $letterType->load($validIncludes);
 
         return response()->json([
             'code' => 200,
@@ -94,7 +91,7 @@ class LetterTypeController extends Controller
     {
         $validateData = $request->validated();
 
-        if(isset($validateData['name'])) {
+        if (isset($validateData['name'])) {
             $validateData['slug'] = Str::slug($validateData['name']);
         }
 
