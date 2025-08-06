@@ -13,7 +13,8 @@ class LetterType extends Model
 
     protected $fillable = [
         'name',
-        'slug'
+        'slug',
+        'format_url',
     ];
 
     public function requirements(): HasMany {

@@ -15,7 +15,9 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->foreignUuid('user_id')->constrained('users');
             $table->foreignUuid('letter_type_id')->constrained('letter_types');
-            $table->enum('status', ['submitted', 'approved', 'rejected', 'revision', 'completed', 'canceled']);
+            $table->string('code', 4)->unique();
+            $table->string('file_path');
+            $table->enum('status', ['submitted', 'approved', 'rejected', 'revision', 'completed', 'canceled'])->default('submitted');
             $table->timestamps();
             $table->softDeletes();
         });

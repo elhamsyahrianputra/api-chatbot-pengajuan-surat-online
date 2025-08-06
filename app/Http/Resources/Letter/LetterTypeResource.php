@@ -18,6 +18,7 @@ class LetterTypeResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'slug' => $this->slug,
+            'format_url' => $this->format_url,
             'created_at' => $this->created_at,
             'updated_at' => $this->whenNotNull($this->updated_at),
             'requirements' => LetterRequirementResource::collection($this->whenLoaded('requirements')),

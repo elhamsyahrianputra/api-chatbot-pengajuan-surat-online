@@ -36,9 +36,15 @@ return [
     */
 
     'guards' => [
-        'web' => [
-            'driver' => 'session',
+        // 'web' => [
+        //     'driver' => 'session',
+        //     'provider' => 'users',
+        // ],
+
+        'api' => [
+            'driver' => 'sanctum', // atau 'sanctum' atau 'passport' tergantung yang kamu pakai
             'provider' => 'users',
+            // 'hash' => false,
         ],
     ],
 

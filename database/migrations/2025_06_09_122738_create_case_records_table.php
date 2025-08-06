@@ -11,11 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('letter_types', function (Blueprint $table) {
+        Schema::create('case_records', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('name')->unique();
-            $table->string('slug')->index();
-            $table->string('format_url')->nullable();
+            $table->text('problem');
+            $table->text('solution')->nullable();
+            $table->text('keywords');
+            $table->integer('frequency')->default(1);
+            $table->float('confidence_score')->nullable();
+            $table->enum('status', ['unverified', 'verified', 'deprecated'])->default('unverified')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
@@ -26,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('letter_types');
+        Schema::dropIfExists('case_records');
     }
 };

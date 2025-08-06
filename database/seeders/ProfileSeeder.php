@@ -48,12 +48,13 @@ class ProfileSeeder extends Seeder
 
 
 
-        foreach ($users as $user) {
+        foreach ($users as $index => $user) {
             if ($user->name === "Elham Syahrian Putra") {
                 Profile::create([
                     'user_id' => $user->id,
                     'gender' => 'male',
-                    'academic_program' => Arr::random($academicProgram),
+                    'identity_number' => 'K3520023',
+                    'academic_program' => 'Pendidikan Teknik Informatika dan Komputer',
                     'phone' => "08" . fake()->randomNumber(5, true) . fake()->randomNumber(5, true),
                     'semester' => Arr::random($semester),
                 ]);
@@ -62,6 +63,7 @@ class ProfileSeeder extends Seeder
                 Profile::create([
                     'user_id' => $user->id,
                     'gender' => Arr::random($sex),
+                    'identity_number' => "K15200" . $index + 10,
                     'academic_program' => Arr::random($academicProgram),
                     'phone' => "08" . fake()->randomNumber(5, true) . fake()->randomNumber(5, true),
                     'semester' => Arr::random($semester),

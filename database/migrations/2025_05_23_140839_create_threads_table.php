@@ -11,11 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('letter_types', function (Blueprint $table) {
+        Schema::create('threads', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('name')->unique();
-            $table->string('slug')->index();
-            $table->string('format_url')->nullable();
+            $table->foreignUuid('user_id')->constrained('users');
+            $table->enum('role', ['assistant', 'user']);
+            $table->text('message');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('letter_types');
+        Schema::dropIfExists('threads');
     }
 };

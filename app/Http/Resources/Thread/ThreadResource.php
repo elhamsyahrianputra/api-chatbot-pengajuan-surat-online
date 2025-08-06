@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Resources\Auth;
+namespace App\Http\Resources\Thread;
 
+use App\Http\Resources\User\UserResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
-use Illuminate\Support\Facades\Auth;
 
-class LoginResource extends JsonResource
+class ThreadResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -17,10 +17,10 @@ class LoginResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'role' => $this->getRoleNames()->first(),
-            'name' => $this->name,
-            'email' => $this->email,
-            'created_at' => $this->created_at
+            'user_id' => $this->user_id,
+            'user' => new UserResource($this->whenLoaded('user')),
+            'role' => $this->role,
+            'message' => $this->message,
         ];
     }
 }
