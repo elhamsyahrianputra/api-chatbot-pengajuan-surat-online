@@ -16,13 +16,30 @@ class CaseRecordSeeder extends Seeder
         $caseRecords = [
             // Kasus 1: Kasus Ideal yang Sudah Diverifikasi dan Sering Digunakan
             [
-                'problem' => 'Bagaimana cara mengajukan surat keterangan bebas UKT karena saya penerima KIP-Kuliah?',
-                'solution' => "Untuk mahasiswa penerima KIP-Kuliah, Anda dapat memilih 'Surat Keterangan Lainnya' pada form pengajuan online. Pada kolom keterangan, tuliskan 'Pengajuan Surat Keterangan Bebas UKT' dan lampirkan bukti status sebagai penerima KIP-K pada file persyaratan.",
-                'keywords' => 'bebas ukt, kip-kuliah, kipk, spp, uang kuliah tunggal, keringanan',
+                'problem' => 'Di mana saya bisa mendapatkan KHS?',
+                'solution' => "KHS (Kartu Hasil Studi) dapat diunduh langsung melalui akun SIAKAD kamu. Jika mengalami kendala, hubungi admin program studi untuk meminta file softcopy-nya.",
+                'keywords' => 'khs, kartu hasil studi, unduh khs, download khs, cetak khs, siakad',
                 'frequency' => 12,
                 'confidence_score' => 0.98,
                 'status' => 'verified',
             ],
+            [
+                'problem' => 'Bagaimana cara mencetak KRS?',
+                'solution' => "KRS (Kartu Rencana Studi) bisa dicetak atau diunduh melalui menu KRS di SIAKAD. Jika tidak bisa login atau terjadi error, silakan minta bantuan admin prodi untuk mendapatkan salinannya.",
+                'keywords' => 'krs, kartu rencana studi, cetak krs, download krs, unduh krs, siakad',
+                'frequency' => 9,
+                'confidence_score' => 0.97,
+                'status' => 'verified',
+            ],
+            [
+                'problem' => 'Bagaimana cara mendapatkan transkrip nilai?',
+                'solution' => "Transkrip nilai bisa kamu unduh di SIAKAD pada menu Transkrip. Untuk keperluan resmi atau legalisir, mintalah versi resmi yang dicetak dan distempel oleh bagian akademik.",
+                'keywords' => 'transkrip nilai, download transkrip, unduh transkrip, cetak transkrip, siakad',
+                'frequency' => 7,
+                'confidence_score' => 0.96,
+                'status' => 'verified',
+            ],
+
 
             // Kasus 2: Kasus Baru yang Dicatat Sistem dan Menunggu Verifikasi Admin
             [
@@ -43,19 +60,16 @@ class CaseRecordSeeder extends Seeder
                 'confidence_score' => 0.1,
                 'status' => 'deprecated',
             ],
-
-            // Kasus 4: Kasus Umum dengan Variasi Pertanyaan (Sudah Diverifikasi)
+            // Kasus 3: Kasus Lama yang Sudah Tidak Relevan (Deprecated)
             [
-                'problem' => 'Saya mau cek status surat saya yang kemarin, kodenya SUB-12345. Sudah sampai mana ya prosesnya?',
-                'solution' => "Anda bisa melacak status pengajuan surat Anda secara mandiri melalui menu 'Pantauan' > 'Lacak Surat Online' di website ini, atau bisa langsung bertanya kepada saya dengan format 'cek status surat kode SUB-12345'.",
-                'keywords' => 'cek status, lacak surat, status pengajuan, kode surat, tracking',
-                'frequency' => 8, // Cukup sering ditanyakan
-                'confidence_score' => 0.96,
+                'problem' => 'Dimana saya bisa mencari atau mengunduh SK Beasiswa/Bidik Misi',
+                'solution' => 'SK Beasiswa/Bidik Misi bisa dicari pada halaman situs https://sibea.integrasi.uns.ac.id/unduhan-dokumen. atau mungkin bisa bertanya kepada admin prodi untuk detail lebih lanjut',
+                'keywords' => 'sk beasiswa, bidik misi, unduhan dokumen, situs beasiswa, sibea',
+                'frequency' => 13,
+                'confidence_score' => 0.99,
                 'status' => 'verified',
             ],
         ];
-
-
 
         foreach ($caseRecords as $caseRecord) {
             CaseRecord::create($caseRecord);
