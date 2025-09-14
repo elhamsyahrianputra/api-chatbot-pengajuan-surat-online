@@ -15,7 +15,7 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->text('problem');
             $table->text('solution')->nullable();
-            $table->text('keywords');
+            $table->text('keywords')->nullable();
             $table->integer('frequency')->default(1);
             $table->float('confidence_score')->nullable();
             $table->enum('status', ['unverified', 'verified', 'deprecated'])->default('unverified')->nullable();

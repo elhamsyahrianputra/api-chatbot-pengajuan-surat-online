@@ -15,7 +15,7 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->foreignUuid('case_record_id')->constrained('case_records');
             $table->foreignUuid('user_id')->constrained('users');
-            $table->enum('type', ['not_relevant', 'incomplete', 'different_situation']);
+            $table->enum('type', ['like', 'dislike']);
             $table->timestamps();
             $table->softDeletes();
         });

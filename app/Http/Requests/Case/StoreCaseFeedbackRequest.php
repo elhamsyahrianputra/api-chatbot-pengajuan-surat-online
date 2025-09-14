@@ -11,7 +11,7 @@ class StoreCaseFeedbackRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,9 +22,9 @@ class StoreCaseFeedbackRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'case_record_id' => 'required|exists:case_records',
-            'user_id' => 'required|exists:users',
-            'type' => 'required|string',
+            'case_record_id' => 'required|exists:case_records,id',
+            'user_id' => 'required|exists:users,id',
+            'type' => 'required|string|in:like,dislike',
         ];
     }
 }

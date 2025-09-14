@@ -9,6 +9,7 @@ use App\Http\Resources\Case\CaseRecordResource;
 use App\Models\CaseRecord;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class CaseRecordController extends Controller
 {
@@ -90,6 +91,28 @@ class CaseRecordController extends Controller
     {
         $validIncludes = $this->getValidIncludes(['feedback']);
         $caseRecord->load($validIncludes);
+
+        return response()->json([
+            'code' => 200,
+            'status' => 'OK',
+            'message' => 'Case record created successfully.',
+            'data' => new CaseRecordResource($caseRecord)
+        ]);
+    }
+
+    public function showByProblem(string $problem)
+    {
+        $problem = Str::lower($problem);
+        $caseRecord = CaseRecord::where('problem', $problem)->first();
+
+        if ($caseRecord === null) {
+            return response()->json([
+                'code' => 200,
+                'status' => 'OK',
+                'message' => 'Case record created successfully.',
+                'data' => null
+            ]);
+        }
 
         return response()->json([
             'code' => 200,

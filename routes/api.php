@@ -8,6 +8,7 @@ use App\Http\Controllers\API\User\UserController;
 use App\Http\Controllers\Case\CaseFeedbackController;
 use App\Http\Controllers\Case\CaseRecordController;
 use App\Http\Resources\User\UserResource;
+use App\Models\CaseRecord;
 use App\Models\LetterSubmission;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -57,6 +58,9 @@ Route::middleware('auth:sanctum')->group(function () {
 
     // Case Records
     Route::apiResource('case-records', CaseRecordController::class);
+    Route::get('case-records/problem/{problem}', [CaseRecordController::class, 'showByProblem']);
+
+    // Case Feedback
     Route::apiResource('case-feedback', CaseFeedbackController::class);
 });
 
